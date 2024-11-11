@@ -1,0 +1,31 @@
+CREATE TABLE postac (
+	id_postaci int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nazwa varchar(40),
+	rodzaj enum('wiking', 'ptak', 'kobieta'),
+	data_ur date,
+	wiek int unsigned
+);
+
+
+INSERT INTO postac(nazwa, rodzaj, data_ur, wiek) VALUES ('Bjorn', 1, '0001/01/01', 2023);
+INSERT INTO postac(nazwa, rodzaj, data_ur, wiek) VALUES ('Drozd', 2, '2023/07/24', 1);
+INSERT INTO postac(nazwa, rodzaj, data_ur, wiek) VALUES ('Tesciowa', 3, '1980/03/24', 44);
+
+
+UPDATE postac SET wiek=88 WHERE nazwa='Tesciowa';   
+#or
+UPDATE postac SET wiek=88 WHERE id=3;
+
+
+CREATE TABLE walizka (
+	id_walizki int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	pojemnosc int unsigned,
+	kolor enum('rozowy','czerwony','teczowy','zolty'),
+	id_wlasciciela int, CONSTRAINT FK_id_wlasciciela FOREIGN KEY (id_wlasciciela) REFERENCES postac(id_postaci)
+);
+
+
+ALTER TABLE walizka ALTER kolor SET DEFAULT 'rozowy';
+
+INSERT INTO walizka(pojemnosc, kolor, id_wlasciciela) VALUES('20', 'czerwony', 1);
+INSERT INTO walizka(pojemnosc, kolor, id_wlasciciela) VALUES('15', 'zolty', 3);
