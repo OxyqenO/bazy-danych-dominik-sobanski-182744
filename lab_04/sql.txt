@@ -1,0 +1,48 @@
+
+#select all form table
+SELECT * FROM infs_sobanskid.postac
+where rodzaj='wiking'
+ORDER BY data_ur ASC;
+
+#delete one from table
+delete from postac where id_postaci = 5;
+
+#insert 
+INSERT INTO postac VALUES(default, 'Odin', '1', '1567-09-29', '158');
+
+#change zmienia też nazwe
+alter table postac change id_postaci id_postaci int;
+
+#modify zmienia tylko atrybuty
+alter table postac modify id_postaci int;
+
+#drop foreign key
+alter table walizka drop foreign key walizka_ibfk_1;
+
+#show table information
+show create table walizka;
+
+#add pesel (11 znaków)
+alter table postac add pesel char(11) first;
+
+#add pesel to null value
+update postac
+set pesel='12345678912' where nazwa='Bjorn';
+
+#add a new value (syrena) to the list
+alter table postac modify rodzaj enum('wiking', 'ptak', 'kobieta', 'syrena');
+
+#add syrena to table postac
+insert into postac values(12345678911, 5, 'Gertruda Nieszczera', 4, '2000-12-08', 24);
+
+
+
+#create table that is like another table and copy values
+
+#kopia struktury
+create table marynarz like postac;
+
+#kopia danych
+insert into marynarz select
+from postac where statek is not null;
+

@@ -1,3 +1,4 @@
+#zadanie 1
 CREATE TABLE postac (
 	id_postaci int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	nazwa varchar(40),
@@ -16,7 +17,7 @@ UPDATE postac SET wiek=88 WHERE nazwa='Tesciowa';
 #or
 UPDATE postac SET wiek=88 WHERE id=3;
 
-
+#zadanie 2
 CREATE TABLE walizka (
 	id_walizki int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	pojemnosc int unsigned,
@@ -29,3 +30,49 @@ ALTER TABLE walizka ALTER kolor SET DEFAULT 'rozowy';
 
 INSERT INTO walizka(pojemnosc, kolor, id_wlasciciela) VALUES('20', 'czerwony', 1);
 INSERT INTO walizka(pojemnosc, kolor, id_wlasciciela) VALUES('15', 'zolty', 3);
+
+
+#zadanie 3
+create table izba(
+	adres_budynku int,
+	nazwa_izby varchar(40),metraz int unsigned,
+	wlasciciel int not null,
+    
+	primary key (adres_budynku, nazwa_izby),
+	constraint fk_wlasciciel foreign key (wlasciciel)
+	references postac(id_postaci)
+);
+
+
+#add kolor_izby do table izba
+alter table izba 
+add kolor_izby enum('czarny','bialy') default 'czarny'
+after metraz;
+
+#dodaj spiżarnie do izby
+insert into izba values('Kochanowskiego 5', 'Spiżarnia', '20', default, 1); 
+
+
+#zadanie 4
+create table przetwory(
+    id_przetworu int not null primary key,
+    rok_produkcji int default 1654,
+    id_wykonawcy int,
+    zawartosc varchar(60),
+    dodatek varchar(60) default 'papryczka chilli',
+    id_konsumenta int,
+    
+    constraint fk_id_wykonawcy foreign key (id_wykonawcy) references postac(id_postaci),
+    constraint fk_id_konsumenta foreign key (id_konsumenta) references postac(id_postaci)
+);
+
+
+insert into przetwory values (default, default, 1, 'kapusta, papryczka chilli', 'woda', 3);
+
+
+#zadanie 5
+insert into postac values(12345678901, default, 'Thor', 1, '0001-02-03', 2023),
+(12345678902, default, 'Odin', 1, '0001-03-04', 2023),
+12345678903, default, 'Khort', 1, '0001-04-05', 2023),
+(12345678904, default, 'Dir', 1, '0001-05-06', 2023),
+(12345678905, default, 'Gimli', 1, '0001-06-07', 2023);
