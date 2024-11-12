@@ -76,3 +76,36 @@ insert into postac values(12345678901, default, 'Thor', 1, '0001-02-03', 2023),
 12345678903, default, 'Khort', 1, '0001-04-05', 2023),
 (12345678904, default, 'Dir', 1, '0001-05-06', 2023),
 (12345678905, default, 'Gimli', 1, '0001-06-07', 2023);
+
+create table statek(
+    nazwa_statku varchar(40) not null,
+    rodzaj_statku enum('wioslowy', 'zaglowy', 'wioslowo-zaglowy', 'mechaniczny'),
+    data_wodowania date,
+    max_ladownosc int unsigned,
+    
+    primary key(nazwa_statku)
+);
+
+insert into statek values('Saint Maria', 1, '2020-07-23', 300);
+insert into statek values('Saint Monica', 2, '2019-02-15', 400);
+
+
+alter table postac add funkcja varchar(40);
+
+
+update postac 
+set funkcja = 'kapitan' 
+where nazwa='Bjorn';
+
+
+alter table postac add statek varchar(40);
+
+alter table postac 
+add constraint FK_statek
+foreign key (statek) references statek(nazwa_statku);
+
+update postac set statek='Saint Maria' where rodzaj='wiking';
+update postac set statek='Saint Maria' where rodzaj='drozd';
+
+delete from izba where nazwa_izby='spizarnia';
+drop table izba;

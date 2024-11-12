@@ -35,14 +35,38 @@ alter table postac modify rodzaj enum('wiking', 'ptak', 'kobieta', 'syrena');
 #add syrena to table postac
 insert into postac values(12345678911, 5, 'Gertruda Nieszczera', 4, '2000-12-08', 24);
 
+#add waz loko
+alter table postac modify rodzaj enum('wiking', 'ptak', 'kobieta', 'syrena', 'waz');
+insert into postac(id_postaci, nazwa, rodzaj, data_ur, wiek) values(11, 'Loko', 5, '2023-01-28', 1);
 
 
 #create table that is like another table and copy values
-
 #kopia struktury
 create table marynarz like postac;
 
 #kopia danych
-insert into marynarz select
-from postac where statek is not null;
+insert into marynarz select * from postac where statek is not null;
 
+#usunąć dane z kolumny statek
+update postac set statek = null where statek is not null;
+
+#uśmiercić jednego wikinga ;-;
+delete from postac where nazwa='Dir';
+
+#zatopić statki
+delete from statek where nazwa_statku is not null;
+
+#usunąć tabelę statek
+alter table postac drop foreign key FK_statek;
+drop table statek;
+
+
+create table zwierz(
+    id int auto_increment,
+    nazwa varchar(40),
+    wiek int,
+    
+    primary key (id)
+);
+
+insert into zwierz values(default, 'Drozd', 5),(default, 'Loko', 1);
