@@ -34,9 +34,7 @@ limit 5;
 #Zadanie 4
 select distinct rodzaj from zasob;
 
-(select nazwa from kreatura)
-union
-(select rodzaj from kreatura) ;
+select concat(nazwa,' - wi', rodzaj) from kreatura;
 
 select * from zasob 
 where dataPozyskania 
