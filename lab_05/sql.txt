@@ -1,0 +1,46 @@
+#Zadanie 1
+create table kreatura like wikingowie.kreatura;
+create table zasob like wikingowie.zasob;
+create table ekwipunek like wikingowie.ekwipunek;
+
+insert into kreatura select * from wikingowie.kreatura;
+insert into zasob select * from wikingowie.zasob;
+insert into ekwipunek select * from wikingowie.ekwipunek;
+
+select * from zasob;
+select * from zasob where rodzaj='jedzenie';
+select idZasobu, ilosc from zasob where idZasobu=1 or idZasobu=3 or idZasobu= 5;
+
+
+#Zadanie 2
+select * from kreatura where rodzaj != "wiedzma" and udzwig >= 50;
+select * from zasob where waga between 2 and 5;
+select * from kreatura where nazwa like '%or%' and udzwig between 30 and 70;
+
+#zadanie 3
+select * from zasob
+where dataPozyskania like '%-07-%'
+or dataPozyskania like '%-08-%';
+
+select * from zasob 
+where rodzaj is not null 
+order by waga asc;
+
+select * from kreatura 
+where dataUr is not null 
+order by dataUr asc 
+limit 5;
+
+#Zadanie 4
+select distinct rodzaj from zasob;
+
+(select nazwa from kreatura)
+union
+(select rodzaj from kreatura) ;
+
+select * from zasob 
+where dataPozyskania 
+between '2000-01-01' and '2007-01-01';
+
+#Zadanie 5
+
