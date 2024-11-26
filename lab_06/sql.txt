@@ -49,16 +49,16 @@ where idKreatury not in
 select * from kreatura natural join ekwipunek 
 where dataUr like '1670-%-%';
 
-#zadanie 4.2
-
+#zadanie 4.2 - dokończyć
+select nazwa from kreatura order by dataUr limit 5;
 
 #zadanie 4.3
 select k1.idKreatury, k2.idKreatury, k1.nazwa, k2.nazwa from kreatura k1 inner join kreatura k2
 on k1.idKreatury=k2.idKreatury -5;
 
 
-#zadanie 5.1
+#zadanie 5.1 - dokończyć
 #suma ilosci ekwipunku
 select avg(waga)
 
-#zadanie 5.2
+#zadanie 5.2 - dokończyć 
