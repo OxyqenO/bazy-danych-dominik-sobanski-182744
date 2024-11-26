@@ -42,3 +42,9 @@ between '2000-01-01' and '2007-01-01';
 
 #Zadanie 5
 
+
+select * from zasob where rodzaj is null;
+
+select distinct rodzaj from zasob
+where nazwa like 'ba%' or nazwa like '%os'
+order by nazwa;
