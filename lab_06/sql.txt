@@ -1,0 +1,64 @@
+#zadanie 1.1
+select avg(waga) from kreatura where rodzaj = 'wiking';
+
+#zadanie 1.2
+select rodzaj, avg(waga), count(*) from kreatura group by rodzaj;
+
+#zadanie 1.3
+select avg(year(now()) - year(dataUr)) as wiek from kreatura;
+
+
+#zadanie 2.1
+select rodzaj, sum(waga * ilosc) from zasob group by rodzaj;
+
+#zadanie 2.2
+select nazwa, avg(waga) from zasob 
+where ilosc >= 4 
+group by nazwa 
+having sum(waga) > 10;
+
+#zadanie 2.3
+select rodzaj, count(distinct nazwa) as ile from zasob  
+group by rodzaj
+having min(ilosc) >1; 
+
+
+#zadanie 3.1
+select k.idKreatury, nazwa, 
+e.idKreatury, idZasobu, ilosc 
+from kreatura k inner join ekwipunek e 
+on e.idKreatury=k.idKreatury;
+
+#zadanie 3.2
+select * from 
+kreatura k inner join ekwipunek e 
+on e.idKreatury=k.idKreatury
+inner join zasob z
+on z.idZasobu = e.idZasobu;
+
+#zadanie 3.3
+#podzapytanie
+select *from kreatura 
+where idKreatury not in 
+(select idKreatury from ekwipunek where idKreatury is not null);
+
+#left join
+
+
+#zadanie 4.1
+select * from kreatura natural join ekwipunek 
+where dataUr like '1670-%-%';
+
+#zadanie 4.2
+
+
+#zadanie 4.3
+select k1.idKreatury, k2.idKreatury, k1.nazwa, k2.nazwa from kreatura k1 inner join kreatura k2
+on k1.idKreatury=k2.idKreatury -5;
+
+
+#zadanie 5.1
+#suma ilosci ekwipunku
+select avg(waga)
+
+#zadanie 5.2
