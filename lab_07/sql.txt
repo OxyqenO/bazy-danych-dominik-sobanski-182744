@@ -1,0 +1,66 @@
+#zadanie 1.1 - Przekopiuj jeszcze raz z bazy wikingowie rekordy z tabeli kreatura, przekopiuj dodatkowo tabele: uczestnicy, etapy_wyprawy, sektor, wyprawa, wraz z danymi
+insert into kreatura select * from wikingowie.kreatura;
+
+create table uczestnicy like wikingowie.uczestnicy;
+insert into uczestnicy select * from wikingowie.uczestnicy;
+
+create table etapy_wyprawy like wikingowie.etapy_wyprawy;
+insert into etapy_wyprawy select * from wikingowie.etapy_wyprawy;
+
+create table sektor like wikingowie.sektor;
+insert into sektor select * from wikingowie.sektor;
+
+create table wyprawa like wikingowie.wyprawa;
+insert into wyprawa select * from wikingowie.wyprawa;
+
+#zadanie 1.2 - Wypisz nazwy kreatur, które nie uczestniczyły w żadnej wyprawie
+select nazwa from kreatura
+where idKreatury not in (select id_uczestnika from uczestnicy);
+
+#zadanie 1.3 - Dla każdej wyprawy wypisać jej nazwę oraz sumę ilości ekwipunku, jaka została zabrana przez uczestników tej wyprawy
+select w.nazwa, sum(e.idEkwipunku) as ile_ekwipunku
+from wyprawa w 
+inner join uczestnicy u on w.id_wyprawy=u.id_wyprawy
+inner join kreatura k on k.idKreatury=u.id_uczestnika
+inner join ekwipunek e on k.idKreatury=e.idKreatury 
+group by w.id_wyprawy;
+
+
+
+#zadanie 2.1 - Dla każdej wyprawy wypisz jej nazwę, liczbę uczestników, oraz nazwy tych uczestników w jednej linii
+select w.nazwa, count(k.nazwa), group_concat(k.nazwa SEPARATOR ' | ') as liczba_uczestnikow 
+from wyprawa w 
+inner join uczestnicy u on w.id_wyprawy=u.id_wyprawy
+inner join kreatura k on k.idKreatury=u.id_uczestnika
+group by w.id_wyprawy;
+
+#zadanie 2.2 - Wypisz kolejne etapy wszystkich wypraw wraz z nazwami sektorów, sortując najpierw według daty początku wyprawy, a następnie według kolejności występowania etapów. W każdym etapie określ nazwę kierownika danej wyprawy
+#select * from etapy_wyprawy ew 
+#inner join sektor s on ew.sektor=s.id_sektora;
+
+
+
+#zadanie 3.1 -
+select s.nazwa, count(ew.sektor), s.id_sektora
+from etapy_wyprawy ew
+right join sektor s on ew.sektor=s.id_sektora
+group by s.id_sektora;
+
+#zadanie 3.2 -
+
+#zadanie 3.3 - 
+
+
+#zadanie 4.1 -
+
+#zadanie 4.2 -
+
+#zadanie 4.3 - 
+
+
+#zadanie 5.1 -
+
+#zadanie 5.2 -
+
+#zadanie 5.3 - 
+
