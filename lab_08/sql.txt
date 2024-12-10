@@ -1,0 +1,9 @@
+create trigger kreatura_before_update
+before update on kreatura
+	for each row
+	begin
+		if waga > 0 then
+			insert into kreatura.old = kreatura.new
+    end
+
+end;
