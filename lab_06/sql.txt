@@ -49,16 +49,30 @@ where idKreatury not in
 select * from kreatura natural join ekwipunek 
 where dataUr like '1670-%-%';
 
-#zadanie 4.2 - dokończyć
-select nazwa from kreatura order by dataUr limit 5;
+#zadanie 4.2
+select k.nazwa from kreatura k 
+inner join ekwipunek e on k.idKreatury = e.idKreatury 
+inner join zasob z on e.idZasobu = z.idZasobu 
+where z.rodzaj='jedzenie' 
+order by dataUr limit 5;
 
 #zadanie 4.3
 select k1.idKreatury, k2.idKreatury, k1.nazwa, k2.nazwa from kreatura k1 inner join kreatura k2
 on k1.idKreatury=k2.idKreatury -5;
 
 
-#zadanie 5.1 - dokończyć
-#suma ilosci ekwipunku
-select avg(waga)
+#zadanie 5.1
+select k.rodzaj, avg(e.ilosc * z.waga)
+from kreatura k
+inner join ekwipunek e on e.idKreatury=k.idKreatury
+inner join zasob z on e.idZasobu = z.idZasobu
+group by k.rodzaj
+having sum(e.ilosc) < 30 and k.rodzaj not in ('waz','malpa');
 
-#zadanie 5.2 - dokończyć 
+#zadanie 5.2
+select k.rodzaj, 
+MIN(k.dataUr) as oldest, 
+MAX(k.dataUr) as youngest, 
+(select nazwa from kreatura where dataUr = MIN(k.dataUr) and rodzaj = k.rodzaj) as oldest_creature, 
+(select nazwa from kreatura where dataUr = MAX(k.dataUr) and rodzaj = k.rodzaj) as youngest_creature
+from kreatura k group by k.rodzaj having k.rodzaj is not null;
